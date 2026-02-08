@@ -1,0 +1,62 @@
+# ProLUG Automation
+
+## Unit 10 Worksheet
+
+## Instructions
+
+Fill out this sheet as you progress through the lab and discussions. Hold your worksheets until
+the end to turn them in as a final submission packet.
+
+## Discussion Questions:
+
+### Unit 10 Discussion Post 1
+
+Your team uses Ansible and needs to secure one of the images
+you have been working to build in Rocky 9. You have decided to use
+https://github.com/ansible-lockdown ansible Lockdown for STIG remediation.
+1. Where is this tool designed to be run?
+  a. Why is this going to cause you a problem?
+2. How will you go about remediating problems in your environment, if you have to run
+this in a chrooted environment?
+
+### Unit 10 Discussion Post 2
+Read these blog posts about CIS and STIG compliance:
+https://www.mindpointgroup.com/blog/stig-vs-cis-part-1-the-anatomy-of-baselines-and-compliance?lockdownenterprise https://www.mindpointgroup.com/blog/stig-vs-cis-part-2-selecting-the-best-baseline-for-your-business?lockdownenterprise
+1. Why might you want to choose one over the other?
+2. Which version of baseline tool aligns with your current industry, or the industry
+you’re wanting to work in?
+
+## Definitions/Terminology
+
+• Warewulf terminology
+  o Images
+  o Overlays
+    ▪ System
+    ▪ Runtime
+• Chrooted Enviroment
+• Stigs
+  o Ansible Lockdown (what is this?)
+  o OpenSCAP tooling
+
+## Notes During Lecture/Class
+
+Ansible Kubernetes core module:
+https://docs.ansible.com/projects/ansible/latest/collections/kubernetes/core/k8s_module.html
+
+### Useful tools
+
+## Lab and Assignment
+
+Unit 10 Secure Modern Linux - https://killercoda.com/het-tanis/course/Automation-Labs/Unit10_Harden_Linux_Systems
+
+## Digging Deeper
+
+1. Read other parts of this doc for more HPC understanding:
+https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-223.ipd.pdf
+  a. What are the components on the drawing on page 3 of doc (pg. 11 in the web
+  viewer)
+
+## Reflection Questions
+
+1. What questions do you still have about this week?
+2. How are you going to use what you’ve learned in your current role?

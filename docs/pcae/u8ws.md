@@ -67,8 +67,8 @@ teams. You have a development cluster that they can use and capacity is not a co
 
 !!! info
 
-    Submit your input by following the link below. The discussion posts are done in Discord Forums.
-    [Link to Discussion Posts](https://discord.com/channels/611027490848374811/1365776270800977962)
+    Submit your input by following the link. The discussion posts are done in Discord Forums.  
+    [:fontawesome-brands-discord: Link to Discussion Posts](https://discord.com/channels/611027490848374811/1365776270800977962)
 
 ## Definitions
 
