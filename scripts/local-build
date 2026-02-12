@@ -29,6 +29,7 @@ declare -a PIP_DEPS=(
     "mkdocs-to-pdf"
     "mkdocs-material"
     "mkdocs-glightbox"
+    "weasyprint"
 )
 
 cleanup() {
@@ -104,12 +105,12 @@ setup-venv(){
     printf "[INFO]: Setting up a local build for the ProLUG MkDocs course books...\n"
     printf "[INFO]: Attempting to set up virtual environment...\n"
 
-    which weasyprint >/dev/null 2>&1 || {
-        printf >&2 "[ERROR]: The mkdocs-to-pdf plugin requires the 'weasyprint' package to build properly\n"
-        printf "[INFO]: Weasyprint has OS specific dependencies and cannot be easily installed via pip\n"
-        printf "[INFO]: Weasyprint documentation: https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation\n"
-        exit 1
-    }
+    # which weasyprint >/dev/null 2>&1 || {
+    #     printf >&2 "[ERROR]: The mkdocs-to-pdf plugin requires the 'weasyprint' package to build properly\n"
+    #     printf "[INFO]: Weasyprint has OS specific dependencies and cannot be easily installed via pip\n"
+    #     printf "[INFO]: Weasyprint documentation: https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation\n"
+    #     exit 1
+    # }
 
     if ! [[ -d ./venv ]]; then
         python3 -m venv venv || {
