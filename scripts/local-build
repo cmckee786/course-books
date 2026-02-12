@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck disable=SC2317
+# shellcheck disable=SC2317,SC2329
 #===============================================================================
 #
 #          FILE:  local-build
@@ -29,6 +29,7 @@ declare -a PIP_DEPS=(
     "mkdocs-to-pdf"
     "mkdocs-material"
     "mkdocs-glightbox"
+    "weasyprint"
 )
 
 cleanup() {
@@ -56,7 +57,7 @@ a hot-reloading MkDocs server bound to the host IP.
 
 OPTIONS:
   -rm, --remove-venv       Remove the virtual environment on exit.
-                           Useful for one-off testing.
+                           Does not build or serve the website.
 
   -h,  --help              Display this help message and exit.
 
@@ -104,13 +105,6 @@ setup-venv(){
     printf "[INFO]: Setting up a local build for the ProLUG MkDocs course books...\n"
     printf "[INFO]: Attempting to set up virtual environment...\n"
 
-    which weasyprint >/dev/null 2>&1 || {
-        printf >&2 "[ERROR]: The mkdocs-to-pdf plugin requires the 'weasyprint' package to build properly\n"
-        printf "[INFO]: Weasyprint has OS specific dependencies and cannot be easily installed via pip\n"
-        printf "[INFO]: Weasyprint documentation: https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation\n"
-        exit 1
-    }
-
     if ! [[ -d ./venv ]]; then
         python3 -m venv venv || {
             printf >&2 "[ERROR]: Failed to set up Python virtual environment.\n\n"
@@ -133,6 +127,14 @@ setup-venv(){
         printf >&2 "[ERROR]: Failed to install dependencies!\n"
         return 1
     }
+    type weasyprint > /dev/null 2>&1 || {
+        printf >&2 "[ERROR]: The 'weasyprint' package failed to install via pip\n"
+        printf >&2 "[ERROR]: The mkdocs-to-pdf plugin requires the 'weasyprint' package to build properly\n"
+        printf "[INFO]: Weasyprint has OS specific dependencies and cannot be easily installed via pip\n"
+        printf "[INFO]: Weasyprint documentation: https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation\n"
+        return 1
+    }
+
     printf "[INFO]: Virtual environment setup complete.\n"
     return 0
 }
@@ -152,14 +154,14 @@ serve-mkdocs(){
 }
 
 if [[ $REMOVE_VENV -eq 0 ]]; then
-	setup-venv || {
-	    printf >&2 "[ERROR]: Failed to set up python virtual environment!\n"
-	    exit 1
-	}
-	serve-mkdocs || {
-		printf >&2 "[ERROR]: Ran into a problem when building/serving mkdocs site.\n"
-		exit 1
-	}
+    setup-venv || {
+        printf >&2 "[ERROR]: Failed to set up python virtual environment!\n"
+        exit 1
+    }
+    serve-mkdocs || {
+        printf >&2 "[ERROR]: Ran into a problem when building/serving mkdocs site.\n"
+        exit 1
+    }
 fi
 
 exit 0
