@@ -127,8 +127,6 @@ setup-venv(){
         printf >&2 "[ERROR]: Failed to install dependencies!\n"
         return 1
     }
-    printf "[INFO]: Virtual environment setup complete.\n"
-
     type weasyprint > /dev/null 2>&1 || {
         printf >&2 "[ERROR]: The 'weasyprint' package failed to install via pip\n"
         printf >&2 "[ERROR]: The mkdocs-to-pdf plugin requires the 'weasyprint' package to build properly\n"
@@ -137,6 +135,7 @@ setup-venv(){
         return 1
     }
 
+    printf "[INFO]: Virtual environment setup complete.\n"
     return 0
 }
 
