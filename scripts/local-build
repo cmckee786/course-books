@@ -57,7 +57,7 @@ a hot-reloading MkDocs server bound to the host IP.
 
 OPTIONS:
   -rm, --remove-venv       Remove the virtual environment on exit.
-                           Useful for one-off testing.
+                           Does not build or serve the website.
 
   -h,  --help              Display this help message and exit.
 
