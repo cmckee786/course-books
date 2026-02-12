@@ -23,6 +23,7 @@
 #
 #===============================================================================
 
+declare -i PORT=8000
 declare -i REMOVE_VENV=0
 declare -a PIP_DEPS=(
     "mkdocs"
@@ -53,11 +54,14 @@ Usage: ./scripts/local-build [OPTIONS] [--]
 
 Set up a Python virtual environment and serve the ProLUG MkDocs course books
 locally for development. Automatically installs required dependencies and launches 
-a hot-reloading MkDocs server bound to the host IP.
+a hot-reloading MkDocs server bound to the host IP on port 8000.
 
 OPTIONS:
   -rm, --remove-venv       Remove the virtual environment on exit.
                            Does not build or serve the website.
+
+  -p PORT, --port PORT     Serve on the port specified in PORT.
+                           Default: 8000
 
   -h,  --help              Display this help message and exit.
 
@@ -65,13 +69,14 @@ NOTES:
   - Must be run from the root of the course-books project directory.
   - Requires bash >= 4.4, python3 >= 3.10 with the 'venv' module.
   - Dependencies installed into the venv: mkdocs, mkdocs-material,
-    mkdocs-glightbox.
+    mkdocs-glightbox, weasyprint.
   - The server binds to "\$(hostname -I | cut -d' ' -f1):8000" by default.
 
 EXAMPLES:
-  ./scripts/local-build             # set up venv if needed, then serve
-  ./scripts/local-build -rm         # remove venv after exit
-  ./scripts/local-build --help      # show this help message and exit
+  ./scripts/local-build             # Set up venv if needed, then serve
+  ./scripts/local-build -p 3000     # Serve on port 3000 locally
+  ./scripts/local-build -rm         # Remove venv if present
+  ./scripts/local-build --help      # Show this help message and exit
 
 EOF
 }
@@ -91,9 +96,20 @@ while [[ -n $1 && $1 =~ ^- && ! $1 == '--' ]]; do
             usage
             exit 0
             ;;
+        -p|--port)
+            if [[ -n $2 && $2 =~ ^[[:digit:]]+$ ]]; then
+                shift
+                PORT=$1
+            else
+                usage
+                printf >&2 '[ERROR]: Bad or missing argument to -p / --port\n'
+                exit 1
+            fi
+            shift
+            ;;
         *)
-            printf >&2 "[ERROR]: Unknown option argument: %s\n" "$1"
             usage
+            printf >&2 "[ERROR]: Unknown option argument: %s\n" "$1"
             exit 1
             ;;
     esac
@@ -140,14 +156,16 @@ setup-venv(){
 }
 
 serve-mkdocs(){
+    local serve_endpoint
+    serve_endpoint="$(hostname -I | cut -d' ' -f1):${PORT:-8000}"
     if ! type mkdocs > /dev/null 2>&1; then
         printf >&2 "[ERROR]: No 'mkdocs' in PATH. Is the virutal environment set up correctly?\n";
         return 1;
     fi
-    printf "[INFO]: Building and serving site via HTTP...\n"
+    printf "[INFO]: Building and serving site via HTTP at %s\n" "$serve_endpoint"
     printf "[INFO]: The site will hot-reload changes as they're made.\n"
-    mkdocs serve -a "$(hostname -I | cut -d' ' -f1):8000" || {
-        printf >&2 "[ERROR]: Failed serve mkdocs site! \n"; 
+    mkdocs serve -a "$serve_endpoint" || {
+        printf >&2 "[ERROR]: Failed serve mkdocs site on %s\n" "$serve_endpoint"; 
         return 1;
     }
     return 0
