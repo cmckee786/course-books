@@ -2,7 +2,7 @@
 
 For consideration to be an effective learner,
 
-Arguably, we can categorize difficult subjects by common challenges; high volume of material to memorize, many complex multi-step procedures, or highly abstract concepts. The following methodologies, combined with the three core principles of time, repetition, and effective methods, can equip learners with the tools to tackle tough subjects.
+Arguably, we can categorize difficult subjects by common challenges; high volume of material to memorize, many complex multi-step procedures, or highly abstract concepts. The following, combined with the three core principles of time, repetition, and effective methods, can equip learners with the tools to tackle tough subjects.
 
 This document does not attempt to be exhaustive or encapsulate all forms and perspectives of learning. Ultimately, learners must be able to recognize their own methodologies that are effective for them.
 
@@ -11,7 +11,7 @@ This document does not attempt to be exhaustive or encapsulate all forms and per
 Strive to spread study sessions over days or weeks instead of cramming. Consistent, short, daily exposure is likely more effective than marathon sessions.
 
 - The brain needs time to consolidate learning; massed practice could lead to quick forgetting.
-- Listening to a song repeatedly over two weeks can help memorize ~500 words effortlessly through natural spaced repetition.
+- For example, listening to a song repeatedly over two weeks can help memorize ~500 words effortlessly through natural spaced repetition.
 - Do a little bit every day, even 20–30 minutes consistently builds mastery faster than irregular long sessions. You can't master a tough subject in one weekend, but daily input compounds.
 
 ## Use Active Recall
