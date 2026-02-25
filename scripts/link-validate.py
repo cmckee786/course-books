@@ -315,19 +315,20 @@ def main() -> None:
             print(f"Building new {IGNORED_PATH} file...")
             with open(IGNORED_PATH, "w", encoding="utf-8") as f_ignore:
                 [f_ignore.writelines(f"{link['link']}\n") for link in failed_links]
-            sort_file(IGNORED_PATH)
 
         if parser.add_failed:
             print(f"Appending failed links to {IGNORED_PATH} file...")
             with open(IGNORED_PATH, "a", encoding="utf-8") as f_failed:
                 [f_failed.writelines(f"{link['link']}\n") for link in failed_links]
-            sort_file(IGNORED_PATH)
 
         if parser.add_successful:
             print(f"Appending failed links to {STORAGE_PATH} file...")
             with open(STORAGE_PATH, "a", encoding="utf-8") as f_successful:
                 [f_successful.writelines(f"{link['link']}\n") for link in failed_links]
-            sort_file(STORAGE_PATH)
+
+        # TODO: Allow sort file to take in Path or list of Paths, logic to run sort file once
+        sort_file(STORAGE_PATH)
+        sort_file(IGNORED_PATH)
 
     elif parser.skip_validation is True:
         print("Skipped link validation!")
