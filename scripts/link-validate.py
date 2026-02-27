@@ -328,7 +328,6 @@ def main() -> None:
             with open(STORAGE_PATH, "a", encoding="utf-8") as f_successful:
                 [f_successful.writelines(f"{link['link']}\n") for link in failed_links]
 
-        # TODO: Allow sort file to take in Path or list of Paths, logic to run sort file once
         sort_file(STORAGE_PATH, IGNORED_PATH)
 
     elif parser.skip_validation is True:
