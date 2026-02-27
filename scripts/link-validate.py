@@ -123,15 +123,17 @@ def get_file_links(path: Path) -> list[str | None]:
     return stored_links
 
 
-def sort_file(path: Path) -> None:
+def sort_file(*paths: Path) -> None:
     """Sort files for stored and ignored links to reduce diffs"""
-    with open(path, "r", encoding="utf-8") as f_pre:
-        links = [line.strip() for line in f_pre]
-        links.sort()
-        if links:
-            with open(path, "w", encoding="utf-8") as f_post:
-                for line in links:
-                    f_post.writelines(f"{line}\n")
+    for path in paths:
+        if path and Path(path).exists():
+            with open(path, "r", encoding="utf-8") as f_pre:
+                links = [line.strip() for line in f_pre]
+                if links:
+                    links.sort()
+                    with open(path, "w", encoding="utf-8") as f_post:
+                        for line in links:
+                            f_post.writelines(f"{line}\n")
 
 
 def validate_link(matched_item: dict[str, str | int | Path]) -> tuple:
@@ -327,8 +329,7 @@ def main() -> None:
                 [f_successful.writelines(f"{link['link']}\n") for link in failed_links]
 
         # TODO: Allow sort file to take in Path or list of Paths, logic to run sort file once
-        sort_file(STORAGE_PATH)
-        sort_file(IGNORED_PATH)
+        sort_file(STORAGE_PATH, IGNORED_PATH)
 
     elif parser.skip_validation is True:
         print("Skipped link validation!")
