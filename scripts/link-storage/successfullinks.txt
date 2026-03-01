@@ -138,6 +138,7 @@ https://grafana.com/docs/grafana/latest/panels-visualizations/configure-threshol
 https://grafana.com/docs/loki/latest/get-started/architecture/
 https://grafana.com/docs/loki/latest/query/analyzer/
 https://grafana.com/docs/loki/latest/reference/loki-http-api/#query-logs-within-a-range-of-time
+https://grafana.com/integrations/linux-node/monitor/
 https://grafana.com/solutions/linux-node/monitor/
 https://help.ubuntu.com/community/UFW
 https://httpd.apache.org/

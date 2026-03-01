@@ -14,6 +14,7 @@ import argparse
 import re
 import sys
 import urllib.error
+import random
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -162,7 +163,7 @@ def validate_link(matched_item: dict[str, str | int | Path]) -> tuple:
 
 def get_unique_links(
     stored: list[str | None], ignored: list[str | None], arg_path: Path
-) -> list:
+) -> list[dict]:
     """Aggregate unique URLs for link validation into dictionary for processing"""
 
     stored_links: list = stored
@@ -267,12 +268,16 @@ def main() -> None:
     test_links = get_unique_links(storage_links, ignored_storage_links, arg_path)
 
     if test_links and parser.skip_validation is False:
+        # Attempt to randomize list to prevent rate limiting of similar domains
+        random.shuffle(test_links)
         print("Attempting to resolve links for testing...")
+
         with ThreadPoolExecutor(max_workers=WORKER_COUNT) as executor:
             futures = {
                 executor.submit(validate_link, dict_item): dict_item
                 for dict_item in test_links
             }
+
             for i, future in enumerate(as_completed(futures), 1):
                 try:
                     validate_return, matched_item = future.result()
